@@ -11,8 +11,12 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <bits/pthreadtypes.h>
 
 int	main(int ac, char **av)
 {
+	pthread_t th;
+
+	
 	printf("pilo\n");
 }
