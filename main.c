@@ -25,7 +25,7 @@ t_args	*setargs(char **av)
 	if (av[5])
 		args->nte = hb_atou(av[5]);
 	if (args->np > 200 || args->np <= 0 || args->ttd < 60
-		|| args->tte < 60 || args->tts < 60)
+		|| args->tte < 60 || args->tts < 60 || args->nte < -1)
 		return (NULL);
 	return (args);
 }
@@ -33,11 +33,12 @@ t_args	*setargs(char **av)
 int	main(int ac, char **av)
 {
 	t_args	*args;
+	t_philo	*philo;
 
 	if (ac < 5 || 6 < ac)
 		return (printf("   usage : <./philo np ttd tte tts nte(op)>\n"), 1);
 	args = setargs(av);
 	if (!args)
 		return (printf("invalid argument\n"),1);
-	makephilos(args->np);
+	philo = makephilos(args);
 }

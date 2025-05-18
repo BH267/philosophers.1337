@@ -12,19 +12,57 @@
 
 #include "philo.h"
 
-t_philo	*makephilos(int np)
+void	initforks(t_philo *philos)
 {
-	int		i;
-	pthread_t	th[np];
-	t_philo	*philos;
+	int	i;
 
-	philos = (t_philo*)malloc(sizeof(t_philo));
 	i = 0;
-	while (i < np)
+	while (i < philos->gdata->np)
 	{
-		philoadd_back(&philos, newphilo(&th[i]));
+		pthread_mutex_init(&(philos->rfork), NULL);
+		philos->next->lfork = philos->rfork;
+		philos = philos->next;
 		i++;
 	}
+}
+
+void	initphilos(t_philo *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos->gdata->np)
+	{
+		pthread_create(philos->philo, NULL, routine, philos);
+		philos = philos->next;
+		i++;
+	}
+	i = 0;
+	while (i < philos->gdata->np)
+	{
+		pthread_join(*(philos->philo), NULL);
+		philos = philos->next;
+		i++;
+	}
+}
+
+t_philo	*makephilos(t_args *data)
+{
+	int			i;
+	pthread_t	*th;
+	t_philo		*philos;
+
+	th = (pthread_t *)malloc(sizeof(pthread_t) * data->np);
+	philos = NULL;
+	i = 0;
+	while (i < data->np)
+	{
+		philoadd_back(&philos, newphilo(&th[i], data));
+		i++;
+	}
+	philos->gdata = data;
 	lastphilo(philos)->next = philos;
+	initforks(philos);
+	initphilos(philos);
 	return (philos);
 }

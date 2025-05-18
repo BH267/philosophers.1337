@@ -1,3 +1,6 @@
 .gdb*
 *.o
 *.swp
+testmain.c 
+a.out
+philo

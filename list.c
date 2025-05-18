@@ -31,14 +31,18 @@ void	philoadd_back(t_philo **lst, t_philo *newph)
 		*lst = newph;
 }
 
-t_philo	*newphilo(pthread_t *phl)
+t_philo	*newphilo(pthread_t *phl, t_args *gdata)
 {
 	t_philo	*n;
+	static int	id;
 
+	id += 1;
 	n = (t_philo *)malloc(sizeof(t_philo));
 	if (!n)
 		return (NULL);
 	n->philo = phl;
+	n->id = id;
+	n->gdata = gdata;
 	n->next = NULL;
 	return (n);
 }
