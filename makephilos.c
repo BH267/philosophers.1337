@@ -28,7 +28,8 @@ void	initforks(t_philo *philos)
 
 void	initphilos(t_philo *philos)
 {
-	int	i;
+	int			i;
+	pthread_t	th;
 
 	i = 0;
 	while (i < philos->gdata->np)
@@ -44,6 +45,8 @@ void	initphilos(t_philo *philos)
 		philos = philos->next;
 		i++;
 	}
+	pthread_create(&th, NULL, monitor, philos);
+	pthread_join(th, NULL);
 }
 
 t_philo	*makephilos(t_args *data)

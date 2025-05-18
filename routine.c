@@ -20,6 +20,8 @@ void	eating(t_philo *philo)
 	printf("time %d has taken a fork\n", philo->id);
 	printf("time %d is eating\n", philo->id);
 	hb_usleep(philo->gdata->tte);
+	philo->nmeals += 1;
+	philo->lastmeal = getime();
 	pthread_mutex_unlock(&(philo->rfork));
 	pthread_mutex_unlock(&(philo->lfork));
 }
@@ -42,8 +44,12 @@ void	*routine(void *philos)
 	philo = (t_philo *)philos;
 	while (1)
 	{
+		if (*(philo->dead))
+			break ;
 		thinking(philo);
 		eating(philo);
+		if (*(philo->dead))
+			break ;
 		sleeping(philo);
 	}
 	return (NULL);

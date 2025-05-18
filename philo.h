@@ -23,6 +23,11 @@
 # include <sys/time.h>
 # include <bits/pthreadtypes.h>
 
+# define BLUE "\033[0;36m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define DEFULT "\033[0m"
+
 typedef struct s_argument {
 	long long	np;
 	long long	ttd;
@@ -37,10 +42,15 @@ typedef struct s_philo {
 	pthread_mutex_t		rfork;
 	t_args			*gdata;
 	int				id;
+	int				*dead;
+	size_t			lastmeal;
+	ssize_t			nmeals;
 	struct s_philo		*next;
 }	t_philo;
 
 int		hb_isdigit(int n);
+void	*monitor(void *philo);
+size_t	getime(void);
 void	*routine(void *philo);
 void	hb_usleep(size_t sleep);
 t_philo	*makephilos(t_args *data);

@@ -1,5 +1,5 @@
 SRC = main.c hb_atou.c hb_isdigit.c makephilos.c list.c \
-      hb_usleep.c routine.c
+      hb_usleep.c routine.c monitor.c
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
