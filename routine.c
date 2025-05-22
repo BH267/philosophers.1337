@@ -48,17 +48,11 @@ void	*routine(void *philos)
 	{
 		if (*(philo->dead))
 			break ;
-	//printf(BLUE" dead flag %d\n"DEFULT, *(philo->dead));
+		printf(BLUE" dead flag %d\n"DEFULT, *(philo->dead));
 		thinking(philo);
 		if (*(philo->dead))
 			break ;
-		if (philo->id % 2 == 0)
-			eating(philo);
-		else
-		{
-			hb_usleep(600);
-			eating(philo);
-		}
+		eating(philo);
 		if (*(philo->dead))
 			break ;
 		sleeping(philo);

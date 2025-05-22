@@ -31,7 +31,7 @@ void	philoadd_back(t_philo **lst, t_philo *newph)
 		*lst = newph;
 }
 
-t_philo	*newphilo(pthread_t *phl, t_args *gdata)
+t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 {
 	t_philo	*n;
 	static int	id;
@@ -42,6 +42,7 @@ t_philo	*newphilo(pthread_t *phl, t_args *gdata)
 	if (!n)
 		return (NULL);
 	n->philo = phl;
+	n->rfork = fork;
 	n->nmeals = 0;
 	n->id = id;
 	n->dead = &dead;

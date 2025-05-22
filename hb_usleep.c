@@ -18,7 +18,7 @@ size_t	getime(void)
 
 	if (gettimeofday(&tv, NULL) == -1)
 		return (printf("gettimeofday : %s\n", strerror(errno)), 1);
-	return (tv.tv_sec * 100000 + tv.tv_usec / 10);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
 void	hb_usleep(size_t sleep)

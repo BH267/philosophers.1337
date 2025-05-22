@@ -33,12 +33,11 @@ t_args	*setargs(char **av)
 int	main(int ac, char **av)
 {
 	t_args	*args;
-	t_philo	*philo;
 
 	if (ac < 5 || 6 < ac)
 		return (printf("   usage : <./philo np ttd tte tts nte(op)>\n"), 1);
 	args = setargs(av);
 	if (!args)
 		return (printf("invalid argument\n"),1);
-	philo = makephilos(args);
+	makephilos(args);
 }

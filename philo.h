@@ -59,7 +59,7 @@ t_args	*setargs(char **av);
 ssize_t	hb_atou(const char *nbr);
 t_philo	*lastphilo(t_philo *lst);
 void	philoadd_back(t_philo **lst, t_philo *newph);
-t_philo	*newphilo(pthread_t *phl, t_args *gdata);
+t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata);
 
 
 #endif
