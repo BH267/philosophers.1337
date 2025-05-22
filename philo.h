@@ -45,6 +45,7 @@ typedef struct s_philo {
 	int				*dead;
 	size_t			lastmeal;
 	ssize_t			nmeals;
+	size_t			st;
 	struct s_philo		*next;
 }	t_philo;
 

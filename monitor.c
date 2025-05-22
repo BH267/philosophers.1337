@@ -20,17 +20,17 @@ void	*monitor(void *philos)
 	philo = (t_philo *)philos;
 	while (philo->next)
 	{
-		if (getime() - philo->lastmeal > (size_t)philo->gdata->ttd)
-		{
-			*(philo->dead) = 1;
-			printf(RED"time %d died\n", philo->id);
-		}
 		i = 0;
 		while (i < philo->gdata->np)
 		{
 			*(philo->dead) = 2;
 			if (philo->nmeals < philo->gdata->nte)
 				*(philo->dead) = 0;
+		}
+		if (getime() - philo->lastmeal > (size_t)philo->gdata->ttd)
+		{
+			*(philo->dead) = 1;
+			printf(RED"time %d died\n", philo->id);
 		}
 		if (*(philo->dead))
 			break ;

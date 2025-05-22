@@ -17,7 +17,7 @@ void	initforks(t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (i < philos->gdata->np)
+	while (i < philos->gdata->np - 1)
 	{
 		pthread_mutex_init(&(philos->rfork), NULL);
 		philos->next->lfork = philos->rfork;
@@ -63,7 +63,6 @@ t_philo	*makephilos(t_args *data)
 		philoadd_back(&philos, newphilo(&th[i], data));
 		i++;
 	}
-	philos->gdata = data;
 	lastphilo(philos)->next = philos;
 	initforks(philos);
 	initphilos(philos);

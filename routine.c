@@ -14,27 +14,29 @@
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->rfork));
-	printf("time %d has taken a fork\n", philo->id);
 	pthread_mutex_lock(&(philo->lfork));
-	printf("time %d has taken a fork\n", philo->id);
-	printf("time %d is eating\n", philo->id);
+	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	pthread_mutex_lock(&(philo->rfork));
+	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	printf(RED"%lu %d is eating\n"DEFULT, getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tte);
 	philo->nmeals += 1;
-	philo->lastmeal = getime();
+	philo->lastmeal = getime() - philo->st;
 	pthread_mutex_unlock(&(philo->rfork));
+	printf(GREEN"%lu %d has puting a fork\n"DEFULT, getime() - philo->st, philo->id);
 	pthread_mutex_unlock(&(philo->lfork));
+	printf(GREEN"%lu %d has puting a fork\n"DEFULT, getime() - philo->st, philo->id);
 }
 
 void	sleeping(t_philo *philo)
 {
-	printf("time %d is sleeping\n", philo->id);
+	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tts);
 }
 
 void	thinking(t_philo *philo)
 {
-	printf("time %d is thinking\n", philo->id);
+	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
 }
 
 void	*routine(void *philos)
@@ -46,11 +48,22 @@ void	*routine(void *philos)
 	{
 		if (*(philo->dead))
 			break ;
+	//printf(BLUE" dead flag %d\n"DEFULT, *(philo->dead));
 		thinking(philo);
-		eating(philo);
+		if (*(philo->dead))
+			break ;
+		if (philo->id % 2 == 0)
+			eating(philo);
+		else
+		{
+			hb_usleep(600);
+			eating(philo);
+		}
 		if (*(philo->dead))
 			break ;
 		sleeping(philo);
+		if (*(philo->dead))
+			break ;
 	}
 	return (NULL);
 }

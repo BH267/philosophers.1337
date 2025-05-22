@@ -45,6 +45,7 @@ t_philo	*newphilo(pthread_t *phl, t_args *gdata)
 	n->nmeals = 0;
 	n->id = id;
 	n->dead = &dead;
+	n->st = getime();
 	n->gdata = gdata;
 	n->next = NULL;
 	return (n);
