@@ -27,7 +27,7 @@ int	setdead(t_philo *philo, int d)
 	pthread_mutex_lock(philo->isdead);
 	*(dead()) = d;
 	if (d == 1)
-		printf(RED"%lu %d died\n"DEFULT, getime() - philo->st, philo->id);
+		printf(RED"%lu %d died -> lastmeal: %lu\n"DEFULT, getime() - philo->st, philo->id, readlm(philo));
 	pthread_mutex_unlock(philo->isdead);
 	return (d);
 }
