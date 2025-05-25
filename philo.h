@@ -38,7 +38,7 @@ typedef struct s_argument {
 
 typedef struct s_philo {
 	pthread_t		*philo;
-	pthread_mutex_t		lfork;
+	pthread_mutex_t		*lfork;
 	pthread_mutex_t		rfork;
 	t_args			*gdata;
 	int				id;
@@ -46,6 +46,7 @@ typedef struct s_philo {
 	size_t			lastmeal;
 	ssize_t			nmeals;
 	size_t			st;
+	pthread_mutex_t		*isdead;
 	struct s_philo		*next;
 }	t_philo;
 
@@ -60,6 +61,9 @@ ssize_t	hb_atou(const char *nbr);
 t_philo	*lastphilo(t_philo *lst);
 void	philoadd_back(t_philo **lst, t_philo *newph);
 t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata);
+int	setdead(t_philo *philo, int d);
+int	readead(t_philo *philo);
+void	singlephilo(void);
 
 
 #endif

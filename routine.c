@@ -12,20 +12,46 @@
 
 #include "philo.h"
 
+void	takefork(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->lfork);
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+		pthread_mutex_lock(&(philo->rfork));
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	}
+	else
+	{
+		pthread_mutex_lock(&(philo->rfork));
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+		pthread_mutex_lock(philo->lfork);
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	}
+}
+
+void	putfork(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_unlock(philo->lfork);
+		pthread_mutex_unlock(&(philo->rfork));
+	}
+	else
+	{
+		pthread_mutex_unlock(&(philo->rfork));
+		pthread_mutex_unlock(philo->lfork);
+	}
+}
+
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->lfork));
-	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-	pthread_mutex_lock(&(philo->rfork));
-	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	takefork(philo);
 	printf(RED"%lu %d is eating\n"DEFULT, getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tte);
 	philo->nmeals += 1;
+	putfork(philo);
 	philo->lastmeal = getime() - philo->st;
-	pthread_mutex_unlock(&(philo->rfork));
-	printf(GREEN"%lu %d has puting a fork\n"DEFULT, getime() - philo->st, philo->id);
-	pthread_mutex_unlock(&(philo->lfork));
-	printf(GREEN"%lu %d has puting a fork\n"DEFULT, getime() - philo->st, philo->id);
 }
 
 void	sleeping(t_philo *philo)
@@ -46,17 +72,17 @@ void	*routine(void *philos)
 	philo = (t_philo *)philos;
 	while (1)
 	{
-		if (*(philo->dead))
+		if (readead(philo))
 			break ;
-		printf(BLUE" dead flag %d\n"DEFULT, *(philo->dead));
-		thinking(philo);
-		if (*(philo->dead))
-			break ;
+		printf(BLUE" dead flag %d\n"DEFULT, readead(philo));
 		eating(philo);
-		if (*(philo->dead))
+		if (readead(philo))
 			break ;
 		sleeping(philo);
-		if (*(philo->dead))
+		if (readead(philo))
+			break ;
+		thinking(philo);
+		if (readead(philo))
 			break ;
 	}
 	return (NULL);

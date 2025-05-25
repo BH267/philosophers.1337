@@ -39,5 +39,8 @@ int	main(int ac, char **av)
 	args = setargs(av);
 	if (!args)
 		return (printf("invalid argument\n"),1);
-	makephilos(args);
+	if (args->np == 1)
+		singlephilo();
+	else
+		makephilos(args);
 }

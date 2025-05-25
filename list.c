@@ -35,7 +35,7 @@ t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 {
 	t_philo	*n;
 	static int	id;
-	static int	dead;
+	//static int	dead;
 
 	id += 1;
 	n = (t_philo *)malloc(sizeof(t_philo));
@@ -45,7 +45,6 @@ t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 	n->rfork = fork;
 	n->nmeals = 0;
 	n->id = id;
-	n->dead = &dead;
 	n->st = getime();
 	n->gdata = gdata;
 	n->next = NULL;

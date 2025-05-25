@@ -12,6 +12,24 @@
 
 #include "philo.h"
 
+int	readead(t_philo *philo)
+{
+	int	d;
+
+	pthread_mutex_lock(philo->isdead);
+	d = *(philo->dead);
+	pthread_mutex_unlock(philo->isdead);
+	return (d);
+}
+
+int	setdead(t_philo *philo, int d)
+{
+	pthread_mutex_lock(philo->isdead);
+	*(philo->dead) = d;
+	pthread_mutex_unlock(philo->isdead);
+	return (d);
+}
+
 void	*monitor(void *philos)
 {
 	t_philo	*philo;
@@ -23,16 +41,16 @@ void	*monitor(void *philos)
 		i = 0;
 		while (i < philo->gdata->np)
 		{
-			*(philo->dead) = 2;
+			setdead(philo, 2);
 			if (philo->nmeals < philo->gdata->nte)
-				*(philo->dead) = 0;
+				setdead(philo, 0);
 		}
 		if (getime() - philo->lastmeal > (size_t)philo->gdata->ttd)
 		{
-			*(philo->dead) = 1;
+			setdead(philo, 1);
 			printf(RED"time %d died\n", philo->id);
 		}
-		if (*(philo->dead))
+		if (readead(philo))
 			break ;
 		philo = philo->next;
 	}
