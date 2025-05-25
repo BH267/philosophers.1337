@@ -31,19 +31,18 @@ void	initphilos(t_philo *philos)
 	int			i;
 	pthread_t	th;
 	pthread_mutex_t	isdead;
-	static	int	dead;
 
-	dead = 0;
 	pthread_mutex_init(&(isdead), NULL);
 	i = 0;
 	while (i < philos->gdata->np)
 	{
-		philos->dead = &dead;
+		pthread_mutex_init(&(philos->lm), NULL);
 		philos->isdead = &(isdead);
 		pthread_create(philos->philo, NULL, routine, philos);
 		philos = philos->next;
 		i++;
 	}
+	pthread_create(&th, NULL, monitor, philos);
 	i = 0;
 	while (i < philos->gdata->np)
 	{
@@ -51,7 +50,6 @@ void	initphilos(t_philo *philos)
 		philos = philos->next;
 		i++;
 	}
-	pthread_create(&th, NULL, monitor, philos);
 	pthread_join(th, NULL);
 }
 

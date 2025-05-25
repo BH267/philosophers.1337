@@ -21,7 +21,7 @@ size_t	getime(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	hb_usleep(size_t sleep)
+void	hb_usleep(size_t sleep, t_philo *philo)
 {
 	size_t	ctime;
 
@@ -29,5 +29,9 @@ void	hb_usleep(size_t sleep)
 	if (ctime == 1)
 		return ;
 	while ((getime() - ctime) < sleep)
-		usleep(1);
+	{
+		if (readead(philo))
+			return ;
+		usleep(100);
+	}
 }

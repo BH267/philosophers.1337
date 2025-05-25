@@ -42,11 +42,11 @@ typedef struct s_philo {
 	pthread_mutex_t		rfork;
 	t_args			*gdata;
 	int				id;
-	int				*dead;
 	size_t			lastmeal;
 	ssize_t			nmeals;
 	size_t			st;
 	pthread_mutex_t		*isdead;
+	pthread_mutex_t		lm;
 	struct s_philo		*next;
 }	t_philo;
 
@@ -54,7 +54,7 @@ int		hb_isdigit(int n);
 void	*monitor(void *philo);
 size_t	getime(void);
 void	*routine(void *philo);
-void	hb_usleep(size_t sleep);
+void	hb_usleep(size_t sleep, t_philo *philo);
 t_philo	*makephilos(t_args *data);
 t_args	*setargs(char **av);
 ssize_t	hb_atou(const char *nbr);
@@ -63,7 +63,9 @@ void	philoadd_back(t_philo **lst, t_philo *newph);
 t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata);
 int	setdead(t_philo *philo, int d);
 int	readead(t_philo *philo);
+size_t	setlm(t_philo *philo);
+size_t	readlm(t_philo *philo);
 void	singlephilo(void);
-
+int	*dead(void);
 
 #endif

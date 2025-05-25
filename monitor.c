@@ -17,7 +17,7 @@ int	readead(t_philo *philo)
 	int	d;
 
 	pthread_mutex_lock(philo->isdead);
-	d = *(philo->dead);
+	d = *(dead());
 	pthread_mutex_unlock(philo->isdead);
 	return (d);
 }
@@ -25,31 +25,62 @@ int	readead(t_philo *philo)
 int	setdead(t_philo *philo, int d)
 {
 	pthread_mutex_lock(philo->isdead);
-	*(philo->dead) = d;
+	*(dead()) = d;
+	if (d == 1)
+		printf(RED"%lu %d died\n"DEFULT, getime() - philo->st, philo->id);
 	pthread_mutex_unlock(philo->isdead);
 	return (d);
+}
+
+size_t	readlm(t_philo *philo)
+{
+	size_t	d;
+
+	pthread_mutex_lock(&(philo->lm));
+	d = philo->lastmeal;
+	pthread_mutex_unlock(&(philo->lm));
+	return (d);
+}
+
+size_t	setlm(t_philo *philo)
+{
+	int	lm;
+
+	pthread_mutex_lock(&(philo->lm));
+	philo->lastmeal = getime() - philo->st;
+	lm = philo->lastmeal;
+	pthread_mutex_unlock(&(philo->lm));
+	return (lm);
+}
+
+int	*dead(void)
+{
+	static int	dead;
+
+	return (&dead);
 }
 
 void	*monitor(void *philos)
 {
 	t_philo	*philo;
 	int		i;
+	int		lm;
 
 	philo = (t_philo *)philos;
 	while (philo->next)
 	{
 		i = 0;
-		while (i < philo->gdata->np)
+		lm = 0;
+		while (i < philo->gdata->np && philo->gdata->nte != -1)
 		{
-			setdead(philo, 2);
-			if (philo->nmeals < philo->gdata->nte)
-				setdead(philo, 0);
+			if (philo->nmeals >= philo->gdata->nte)
+				lm++;
+			if (lm == philo->gdata->np)
+				setdead(philo, 2);
+			i++;
 		}
-		if (getime() - philo->lastmeal > (size_t)philo->gdata->ttd)
-		{
+		if (readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo, 1);
-			printf(RED"time %d died\n", philo->id);
-		}
 		if (readead(philo))
 			break ;
 		philo = philo->next;

@@ -44,25 +44,35 @@ void	putfork(t_philo *philo)
 	}
 }
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
+	if (readead(philo))
+		return (1);
 	takefork(philo);
-	printf(RED"%lu %d is eating\n"DEFULT, getime() - philo->st, philo->id);
-	hb_usleep(philo->gdata->tte);
-	philo->nmeals += 1;
+	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
+	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
-	philo->lastmeal = getime() - philo->st;
+	philo->nmeals += 1;
+	setlm(philo);
+	return (0);
 }
 
-void	sleeping(t_philo *philo)
+int	sleeping(t_philo *philo)
 {
+	if (readead(philo))
+		return (1);
 	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
-	hb_usleep(philo->gdata->tts);
+	hb_usleep(philo->gdata->tts, philo);
+	return (0);
 }
 
-void	thinking(t_philo *philo)
+int	thinking(t_philo *philo)
 {
+	if (readead(philo))
+		return (1);
 	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
+	hb_usleep((philo->gdata->ttd - readlm(philo)) * 0.7, philo);
+	return (0);
 }
 
 void	*routine(void *philos)
@@ -74,16 +84,9 @@ void	*routine(void *philos)
 	{
 		if (readead(philo))
 			break ;
-		printf(BLUE" dead flag %d\n"DEFULT, readead(philo));
 		eating(philo);
-		if (readead(philo))
-			break ;
 		sleeping(philo);
-		if (readead(philo))
-			break ;
 		thinking(philo);
-		if (readead(philo))
-			break ;
 	}
 	return (NULL);
 }
