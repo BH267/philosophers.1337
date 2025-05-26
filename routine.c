@@ -18,6 +18,8 @@ int	eating(t_philo *philo)
 		return (1);
 	takefork(philo);
 	setlm(philo);
+	if (readead(philo))
+		return (1);
 	print(EAT, philo);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
@@ -48,7 +50,7 @@ void	*routine(void *philos)
 	t_philo *philo;
 
 	philo = (t_philo *)philos;
-	while (1)
+	while (readead(philo) == 0)
 	{
 		if (eating(philo))
 			break ;

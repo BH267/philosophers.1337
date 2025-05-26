@@ -17,15 +17,17 @@ void	takefork(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->lfork);
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 		pthread_mutex_lock(&(philo->rfork));
+		if (readead(philo))
+			return ;
 		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 	else
 	{
 		pthread_mutex_lock(&(philo->rfork));
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 		pthread_mutex_lock(philo->lfork);
+		if (readead(philo))
+			return ;
 		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 }
