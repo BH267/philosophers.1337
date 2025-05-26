@@ -24,6 +24,7 @@ void	takefork(t_philo *philo)
 	}
 	else
 	{
+		usleep(1000);
 		pthread_mutex_lock(&(philo->rfork));
 		pthread_mutex_lock(philo->lfork);
 		if (readead(philo))
