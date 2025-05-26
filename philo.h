@@ -28,6 +28,11 @@
 # define GREEN "\033[0;32m"
 # define DEFULT "\033[0m"
 
+# define DEAD 0
+# define EAT 1
+# define SLEEP 2
+# define THINK 3
+
 typedef struct s_argument {
 	long long	np;
 	long long	ttd;
@@ -67,5 +72,11 @@ size_t	setlm(t_philo *philo);
 size_t	readlm(t_philo *philo);
 void	singlephilo(void);
 int	*dead(void);
+void	takefork(t_philo *philo);
+void	putfork(t_philo *philo);
+void	print(int state, t_philo *philo);
+char	*hb_itoa(size_t d);
+size_t	hb_strlen(const char *str);
+char	*hb_strdup(const char *str);
 
 #endif

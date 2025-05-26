@@ -12,47 +12,6 @@
 
 #include "philo.h"
 
-int	readead(t_philo *philo)
-{
-	int	d;
-
-	pthread_mutex_lock(philo->isdead);
-	d = *(dead());
-	pthread_mutex_unlock(philo->isdead);
-	return (d);
-}
-
-int	setdead(t_philo *philo, int d)
-{
-	pthread_mutex_lock(philo->isdead);
-	*(dead()) = d;
-	if (d == 1)
-		printf(RED"%lu %d died -> lastmeal: %lu\n"DEFULT, getime() - philo->st, philo->id, readlm(philo));
-	pthread_mutex_unlock(philo->isdead);
-	return (d);
-}
-
-size_t	readlm(t_philo *philo)
-{
-	size_t	d;
-
-	pthread_mutex_lock(&(philo->lm));
-	d = philo->lastmeal;
-	pthread_mutex_unlock(&(philo->lm));
-	return (d);
-}
-
-size_t	setlm(t_philo *philo)
-{
-	int	lm;
-
-	pthread_mutex_lock(&(philo->lm));
-	philo->lastmeal = getime() - philo->st;
-	lm = philo->lastmeal;
-	pthread_mutex_unlock(&(philo->lm));
-	return (lm);
-}
-
 int	*dead(void)
 {
 	static int	dead;
@@ -79,7 +38,7 @@ void	*monitor(void *philos)
 				setdead(philo, 2);
 			i++;
 		}
-		if (readlm(philo) > (size_t)philo->gdata->ttd)
+		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo, 1);
 		if (readead(philo))
 			break ;

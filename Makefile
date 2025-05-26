@@ -1,8 +1,9 @@
 SRC = main.c hb_atou.c hb_isdigit.c makephilos.c list.c \
-      hb_usleep.c routine.c monitor.c singlephilo.c
+      hb_usleep.c routine.c monitor.c singlephilo.c \
+      setandget.c forks.c hb_strlen.c hb_strdup.c hb_ltoa.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g  #-fsanitize=thread
 OBJ = $(SRC:.c=.o)
 
 RM = rm -f

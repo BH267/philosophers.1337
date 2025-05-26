@@ -12,45 +12,13 @@
 
 #include "philo.h"
 
-void	takefork(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->lfork);
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-		pthread_mutex_lock(&(philo->rfork));
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-	}
-	else
-	{
-		pthread_mutex_lock(&(philo->rfork));
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-		pthread_mutex_lock(philo->lfork);
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-	}
-}
-
-void	putfork(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_unlock(philo->lfork);
-		pthread_mutex_unlock(&(philo->rfork));
-	}
-	else
-	{
-		pthread_mutex_unlock(&(philo->rfork));
-		pthread_mutex_unlock(philo->lfork);
-	}
-}
-
 int	eating(t_philo *philo)
 {
 	if (readead(philo))
 		return (1);
 	takefork(philo);
 	setlm(philo);
-	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
+	print(EAT, philo);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
 	philo->nmeals += 1;
@@ -61,7 +29,7 @@ int	sleeping(t_philo *philo)
 {
 	if (readead(philo))
 		return (1);
-	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
+	print(SLEEP, philo);
 	hb_usleep(philo->gdata->tts, philo);
 	return (0);
 }
@@ -70,7 +38,7 @@ int	thinking(t_philo *philo)
 {
 	if (readead(philo))
 		return (1);
-	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
+	print(THINK, philo);
 	//hb_usleep((philo->gdata->ttd - readlm(philo)) * 0.7, philo);
 	return (0);
 }
@@ -82,8 +50,6 @@ void	*routine(void *philos)
 	philo = (t_philo *)philos;
 	while (1)
 	{
-		if (readead(philo))
-			break ;
 		if (eating(philo))
 			break ;
 		if (sleeping(philo))
