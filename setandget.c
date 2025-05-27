@@ -44,7 +44,7 @@ size_t	readlm(t_philo *philo)
 
 size_t	setlm(t_philo *philo)
 {
-	static int		lm;
+	static int	lm;
 
 	pthread_mutex_lock(&(philo->lm));
 	philo->lastmeal = getime() - philo->st;

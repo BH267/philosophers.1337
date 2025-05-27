@@ -33,9 +33,8 @@ void	philoadd_back(t_philo **lst, t_philo *newph)
 
 t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 {
-	t_philo	*n;
+	t_philo		*n;
 	static int	id;
-	//static int	dead;
 
 	id += 1;
 	n = (t_philo *)malloc(sizeof(t_philo));

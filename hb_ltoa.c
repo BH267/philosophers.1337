@@ -44,7 +44,7 @@ char	*hb_itoa(size_t n)
 
 	num = NULL;
 	nega = (n < 0);
-	lenum = hb_lenum (n, nega);
+	lenum = hb_lenum(n, nega);
 	num = malloc(lenum + 1);
 	if (!num)
 		return (NULL);

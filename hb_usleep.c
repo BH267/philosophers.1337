@@ -14,7 +14,7 @@
 
 size_t	getime(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL) == -1)
 		return (printf("gettimeofday : %s\n", strerror(errno)), 1);
@@ -41,9 +41,9 @@ void	print(int state, t_philo *philo)
 	if (state == EAT)
 		printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	else if (state == SLEEP)
-			printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
+		printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
 	else if (state == THINK)
-			printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
+		printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
 	else if (state == DEAD)
-			printf(RED"%lu %d is dead\n"DEFULT, getime() - philo->st, philo->id);
+		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
 }

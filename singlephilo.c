@@ -18,8 +18,8 @@ void	*sroutine(void *null)
 
 	start = getime();
 	(void)null;
-	printf("%lu %d take a fork\n", getime() - start , 1);
-	printf("%lu %d died\n", getime() - start , 1);
+	printf("%lu %d take a fork\n", getime() - start, 1);
+	printf("%lu %d died\n", getime() - start, 1);
 	return (NULL);
 }
 

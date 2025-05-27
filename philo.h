@@ -33,23 +33,25 @@
 # define SLEEP 2
 # define THINK 3
 
-typedef struct s_argument {
+typedef struct s_argument
+{
 	long long	np;
 	long long	ttd;
 	long long	tte;
 	long long	tts;
 	long long	nte;
-} t_args;
+}	t_args;
 
-typedef struct s_philo {
-	pthread_t		*philo;
+typedef struct s_philo
+{
+	pthread_t			*philo;
 	pthread_mutex_t		*lfork;
 	pthread_mutex_t		rfork;
-	t_args			*gdata;
-	int				id;
-	size_t			lastmeal;
-	ssize_t			nmeals;
-	size_t			st;
+	t_args				*gdata;
+	int					id;
+	size_t				lastmeal;
+	ssize_t				nmeals;
+	size_t				st;
 	pthread_mutex_t		*isdead;
 	pthread_mutex_t		lm;
 	struct s_philo		*next;
@@ -66,12 +68,12 @@ ssize_t	hb_atou(const char *nbr);
 t_philo	*lastphilo(t_philo *lst);
 void	philoadd_back(t_philo **lst, t_philo *newph);
 t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata);
-int	setdead(t_philo *philo, int d);
-int	readead(t_philo *philo);
+int		setdead(t_philo *philo, int d);
+int		readead(t_philo *philo);
 size_t	setlm(t_philo *philo);
 size_t	readlm(t_philo *philo);
 void	singlephilo(void);
-int	*dead(void);
+int		*dead(void);
 void	takefork(t_philo *philo);
 void	putfork(t_philo *philo);
 void	print(int state, t_philo *philo);

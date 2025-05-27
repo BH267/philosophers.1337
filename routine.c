@@ -19,7 +19,6 @@ int	eating(t_philo *philo)
 	if (readead(philo))
 		return (1);
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
-	//print(EAT, philo);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
 	philo->nmeals += 1;
@@ -31,7 +30,6 @@ int	sleeping(t_philo *philo)
 	if (readead(philo))
 		return (1);
 	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
-	//print(SLEEP, philo);
 	hb_usleep(philo->gdata->tts, philo);
 	return (0);
 }
@@ -41,14 +39,12 @@ int	thinking(t_philo *philo)
 	if (readead(philo))
 		return (1);
 	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
-	//print(THINK, philo);
-	//hb_usleep((philo->gdata->ttd - readlm(philo)) * 0.1, philo);
 	return (0);
 }
 
 void	*routine(void *philos)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)philos;
 	while (readead(philo) == 0)

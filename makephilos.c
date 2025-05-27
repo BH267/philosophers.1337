@@ -28,8 +28,8 @@ void	initforks(t_philo *philos)
 
 void	initphilos(t_philo *philos)
 {
-	int			i;
-	pthread_t	th;
+	int				i;
+	pthread_t		th;
 	pthread_mutex_t	isdead;
 
 	pthread_mutex_init(&(isdead), NULL);
@@ -55,10 +55,10 @@ void	initphilos(t_philo *philos)
 
 t_philo	*makephilos(t_args *data)
 {
-	int			i;
-	pthread_t	th[data->np];
-	t_philo		*philos;
-	pthread_mutex_t	forks[data->np];
+	int				i;
+	pthread_t		th[200];
+	t_philo			*philos;
+	pthread_mutex_t	forks[200];
 
 	philos = NULL;
 	i = 0;
