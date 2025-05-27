@@ -19,7 +19,10 @@ void	takefork(t_philo *philo)
 		pthread_mutex_lock(philo->lfork);
 		pthread_mutex_lock(&(philo->rfork));
 		if (readead(philo))
+		{
+			putfork(philo);
 			return ;
+		}
 		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 	else
@@ -28,7 +31,10 @@ void	takefork(t_philo *philo)
 		pthread_mutex_lock(&(philo->rfork));
 		pthread_mutex_lock(philo->lfork);
 		if (readead(philo))
+		{
+			putfork(philo);
 			return ;
+		}
 		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 }
