@@ -27,15 +27,11 @@ ssize_t	hb_atou(const char *nbr)
 			return (-1);
 	}
 	if (*nbr == '-' || *nbr == '+')
-	{
-		if (*nbr == '-')
+		if (*(nbr++) == '-')
 			return (-1);
-		nbr++;
-	}
 	while (hb_isdigit(*nbr))
-	{
-		n = n * 10 + (*nbr - '0');
-		nbr++;
-	}
+		n = n * 10 + (*(nbr++) - '0');
+	if (!hb_isdigit(*nbr) && *nbr != 0)
+		return (-1);
 	return (n);
 }

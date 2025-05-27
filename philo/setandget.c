@@ -42,13 +42,20 @@ size_t	readlm(t_philo *philo)
 	return (d);
 }
 
-size_t	setlm(t_philo *philo)
+ssize_t	readnm(t_philo *philo)
 {
-	static int	lm;
+	ssize_t	d;
 
 	pthread_mutex_lock(&(philo->lm));
-	philo->lastmeal = getime() - philo->st;
-	lm = philo->lastmeal;
+	d = philo->nmeals;
 	pthread_mutex_unlock(&(philo->lm));
-	return (lm);
+	return (d);
+}
+
+void	setlm(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->lm));
+	philo->lastmeal = getime() - philo->st;
+	philo->nmeals += 1;
+	pthread_mutex_unlock(&(philo->lm));
 }

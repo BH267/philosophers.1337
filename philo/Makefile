@@ -3,7 +3,7 @@ SRC = main.c hb_atou.c hb_isdigit.c makephilos.c list.c \
       setandget.c forks.c hb_strlen.c hb_strdup.c hb_ltoa.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g  #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g # -fsanitize=thread
 OBJ = $(SRC:.c=.o)
 
 RM = rm -f

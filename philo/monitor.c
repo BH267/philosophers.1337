@@ -30,9 +30,9 @@ void	*monitor(void *philos)
 	{
 		i = 0;
 		lm = 0;
-		while (i < philo->gdata->np && philo->gdata->nte != -1)
+		while (i < philo->gdata->np && philo->gdata->nte != -2)
 		{
-			if (philo->nmeals >= philo->gdata->nte)
+			if (readnm(philos) >= philo->gdata->nte)
 				lm++;
 			if (lm == philo->gdata->np)
 				setdead(philo, 2);

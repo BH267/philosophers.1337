@@ -17,7 +17,7 @@ t_args	*setargs(char **av)
 	t_args	*args;
 
 	args = (t_args *)malloc(sizeof(t_args));
-	args->nte = -1;
+	args->nte = -2;
 	args->np = hb_atou(av[1]);
 	args->ttd = hb_atou(av[2]);
 	args->tte = hb_atou(av[3]);
@@ -25,7 +25,7 @@ t_args	*setargs(char **av)
 	if (av[5])
 		args->nte = hb_atou(av[5]);
 	if (args->np > 200 || args->np <= 0 || args->ttd < 60 || args->tte < 60
-		|| args->tts < 60 || args->nte < -1)
+		|| args->tts < 60 || args->nte < -2 || args->nte == -1)
 		return (NULL);
 	return (args);
 }
