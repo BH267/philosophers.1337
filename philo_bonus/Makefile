@@ -8,7 +8,7 @@ OBJ = $(SRC:.c=.o)
 
 RM = rm -f
 
-NAME = philo
+NAME = philo_bonus
 
 all : $(NAME)
 
