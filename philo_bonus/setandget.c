@@ -27,7 +27,10 @@ int	setdead(t_philo *philo, int d)
 	sem_wait(philo->dead);
 	*(dead()) = d;
 	if (d == 1)
+	{
 		print(DEAD, philo);
+		exit(1);
+	}
 	sem_post(philo->dead);
 	return (d);
 }

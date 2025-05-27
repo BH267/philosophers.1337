@@ -22,27 +22,16 @@ int	*dead(void)
 void	*monitor(void *philos)
 {
 	t_philo	*philo;
-	int		i;
-	int		lm;
 
 	philo = (t_philo *)philos;
-	while (philo->next)
+	while (!readead(philo))
 	{
-		i = 0;
-		lm = 0;
-		while (i < philo->gdata->np && philo->gdata->nte != -2)
-		{
-			if (readnm(philos) >= philo->gdata->nte)
-				lm++;
-			if (lm == philo->gdata->np)
-				setdead(philo, 2);
-			i++;
-		}
+		if (readnm(philos) >= philo->gdata->nte)
+			setdead(philo, 2);
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo, 1);
 		if (readead(philo))
 			break ;
-		philo = philo->next;
 	}
 	return (NULL);
 }

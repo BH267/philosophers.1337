@@ -14,7 +14,9 @@
 
 int	eating(t_philo *philo)
 {
+	printf("slk\n");
 	takefork(philo);
+	printf("slk2\n");
 	setlm(philo);
 	if (readead(philo))
 		return (1);
@@ -43,19 +45,19 @@ int	thinking(t_philo *philo)
 
 void	*routine(void *philos)
 {
-	t_philo	*philo;
+	t_philo		*philo;
+	pthread_t	th;
 
 	philo = (t_philo *)philos;
+	pthread_create(&th, NULL, monitor, philo);
 	while (readead(philo) == 0)
 	{
 		if (philo->nmeals == philo->gdata->nte)
-			break;
-		if (eating(philo))
-			break ;
-		if (sleeping(philo))
-			break ;
-		if (thinking(philo))
-			break ;
+			exit(2);
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
+	pthread_join(th, NULL);
 	return (NULL);
 }

@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <time.h>
 # include <wait.h>
+# include <pthread.h>
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/time.h>

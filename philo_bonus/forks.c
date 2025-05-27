@@ -14,8 +14,11 @@
 
 void	takefork(t_philo *philo)
 {
+	printf("slk14\n");
 	sem_wait(philo->forks);
+	printf("slk4\n");
 	sem_wait(philo->forks);
+	printf("slk5\n");
 	if (readead(philo))
 	{
 		putfork(philo);
