@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 	if (!args)
 		return (printf("invalid argument\n"), 1);
 	if (args->np == 1)
-		singlephilo();
+		singlephilo(args);
 	else
 		philo = makephilos(args);
 	free(args);

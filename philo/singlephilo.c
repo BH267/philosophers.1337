@@ -12,21 +12,23 @@
 
 #include "philo.h"
 
-void	*sroutine(void *null)
+void	*sroutine(void *dataa)
 {
 	size_t	start;
+	t_args	*data;
 
+	data = (t_args *)dataa;
 	start = getime();
-	(void)null;
 	printf("%lu %d take a fork\n", getime() - start, 1);
+	usleep(data->ttd * 1000);
 	printf("%lu %d died\n", getime() - start, 1);
 	return (NULL);
 }
 
-void	singlephilo(void)
+void	singlephilo(t_args *data)
 {
 	pthread_t	th;
 
-	pthread_create(&th, NULL, sroutine, NULL);
+	pthread_create(&th, NULL, sroutine, data);
 	pthread_join(th, NULL);
 }

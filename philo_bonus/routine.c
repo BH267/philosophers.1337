@@ -14,9 +14,7 @@
 
 int	eating(t_philo *philo)
 {
-	printf("slk\n");
 	takefork(philo);
-	printf("slk2\n");
 	setlm(philo);
 	if (readead(philo))
 		return (1);
