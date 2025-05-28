@@ -39,7 +39,10 @@ void	*monitor(void *philos)
 			i++;
 		}
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
+		{
 			setdead(philo, 1);
+			printf("awdi hak -> lm: %lu  -- id: %d -- ct: %lu\n", readlm(philo), philo->id, getime() - philo->st);
+		}
 		if (readead(philo))
 			break ;
 		philo = philo->next;

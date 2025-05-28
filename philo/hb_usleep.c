@@ -38,6 +38,7 @@ void	hb_usleep(size_t sleep, t_philo *philo)
 
 void	print(int state, t_philo *philo)
 {
+	pthread_mutex_lock(philo->print);
 	if (state == EAT)
 		printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	else if (state == SLEEP)
@@ -46,4 +47,5 @@ void	print(int state, t_philo *philo)
 		printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
 	else if (state == DEAD)
 		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
+	pthread_mutex_unlock(philo->print);
 }

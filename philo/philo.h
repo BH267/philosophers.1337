@@ -53,6 +53,7 @@ typedef struct s_philo
 	ssize_t				nmeals;
 	size_t				st;
 	pthread_mutex_t		*isdead;
+	pthread_mutex_t		*print;
 	pthread_mutex_t		lm;
 	struct s_philo		*next;
 }	t_philo;
