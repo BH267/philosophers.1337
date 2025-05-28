@@ -25,7 +25,6 @@ void	initforks(t_philo *philo)
 void	initphilos(t_philo *philos)
 {
 	int i;
-	int	status;
 
 	i = 0;
 	while (i < philos->gdata->np)
@@ -42,11 +41,7 @@ void	initphilos(t_philo *philos)
 	i = 0;
 	while (i < philos->gdata->np)
 	{
-		waitpid(philos->philo, &status, 0);
-		if (WEXITSTATUS(status))
-		{
-			kill(philos->philo, SIGTERM);
-		}
+		waitpid(philos->philo, NULL, 0);
 		philos = philos->next;
 		i++;
 	}

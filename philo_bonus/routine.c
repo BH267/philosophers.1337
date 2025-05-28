@@ -16,8 +16,6 @@ int	eating(t_philo *philo)
 {
 	takefork(philo);
 	setlm(philo);
-	if (readead(philo))
-		return (1);
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
@@ -26,8 +24,6 @@ int	eating(t_philo *philo)
 
 int	sleeping(t_philo *philo)
 {
-	if (readead(philo))
-		return (1);
 	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tts, philo);
 	return (0);
@@ -35,8 +31,6 @@ int	sleeping(t_philo *philo)
 
 int	thinking(t_philo *philo)
 {
-	if (readead(philo))
-		return (1);
 	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
 	return (0);
 }
@@ -51,7 +45,7 @@ void	*routine(void *philos)
 	philo->forks = sem_open("forks", O_CREAT);
 	philo->lm = sem_open("lm", O_CREAT);
 	philo->dead = sem_open("dead", O_CREAT);
-	while (readead(philo) == 0)
+	while (1)
 	{
 		if (philo->nmeals == philo->gdata->nte)
 			exit(2);

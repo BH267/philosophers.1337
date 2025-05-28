@@ -18,11 +18,6 @@ void	takefork(t_philo *philo)
 		usleep(500);
 	sem_wait(philo->forks);
 	sem_wait(philo->forks);
-	if (readead(philo))
-	{
-		putfork(philo);
-		exit(2) ;
-	}
 	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 }
 
