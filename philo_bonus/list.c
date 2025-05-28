@@ -53,9 +53,11 @@ void	hb_clearphilo(t_philo **lst)
 	t_philo	*n;
 	int	i;
 	int	np;
+	int	pid;
 
 	if (!lst)
 		return ;
+	pid = 0;
 	np = (*lst)->gdata->np;
 	free((*lst)->gdata);
 	(*lst)->gdata = NULL;
@@ -63,7 +65,9 @@ void	hb_clearphilo(t_philo **lst)
 	while (i < np)
 	{
 		n = (*lst)->next;
+		pid = (*lst)->philo;
 		free(*lst);
+		kill(pid, SIGINT);
 		*lst = n;
 		i++;
 	}
