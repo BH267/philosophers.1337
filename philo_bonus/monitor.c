@@ -26,7 +26,7 @@ void	*monitor(void *philos)
 	philo = (t_philo *)philos;
 	while (!readead(philo))
 	{
-		if (readnm(philos) >= philo->gdata->nte)
+		if (readnm(philos) >= philo->gdata->nte && philo->gdata->nte != -2)
 			setdead(philo, 2);
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo, 1);

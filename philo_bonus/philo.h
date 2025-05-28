@@ -81,8 +81,7 @@ int		*dead(void);
 void	takefork(t_philo *philo);
 void	putfork(t_philo *philo);
 void	print(int state, t_philo *philo);
-char	*hb_itoa(size_t d);
-size_t	hb_strlen(const char *str);
-char	*hb_strdup(const char *str);
+void	hb_clearphilo(t_philo **lst);
+void	ft_exit(t_philo *philo, int e);
 
 #endif

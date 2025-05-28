@@ -29,7 +29,7 @@ int	setdead(t_philo *philo, int d)
 	if (d == 1)
 	{
 		print(DEAD, philo);
-		exit(1);
+		ft_exit(philo, 1);
 	}
 	sem_post(philo->dead);
 	return (d);

@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   forks.c                                            :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: habenydi <habenydi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 14:31:35 by habenydi          #+#    #+#             */
-/*   Updated: 2025/05/26 14:32:13 by habenydi         ###   ########.fr       */
+/*   Created: 2025/05/28 15:09:06 by habenydi          #+#    #+#             */
+/*   Updated: 2025/05/28 15:10:24 by habenydi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	takefork(t_philo *philo)
+void	ft_exit(t_philo *philo, int e)
 {
-	if (philo->id % 2 != 0)
-		usleep(500);
-	sem_wait(philo->forks);
-	sem_wait(philo->forks);
-	if (readead(philo))
-	{
-		putfork(philo);
-		exit(2) ;
-	}
-	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
-}
-
-void	putfork(t_philo *philo)
-{
-	sem_post(philo->forks);
-	sem_post(philo->forks);
+	hb_clearphilo(&(philo));
+	exit(e);
 }

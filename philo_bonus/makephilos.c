@@ -14,14 +14,18 @@
 
 void	initforks(t_philo *philo)
 {
-	philo->forks = sem_open("forks", O_CREAT);
-	philo->lm = sem_open("lm", O_CREAT);
-	philo->dead = sem_open("dead", O_CREAT);
+	sem_unlink("forks");
+	sem_unlink("lm");
+	sem_unlink("dead");
+	sem_open("forks", O_CREAT, 0644, philo->gdata->np);
+	sem_open("lm", O_CREAT, 0644, 1);
+	sem_open("dead", O_CREAT, 0644, 1);
 }
 
 void	initphilos(t_philo *philos)
 {
-	int				i;
+	int i;
+	int	status;
 
 	i = 0;
 	while (i < philos->gdata->np)
@@ -29,9 +33,8 @@ void	initphilos(t_philo *philos)
 		philos->philo = fork();
 		if (philos->philo == 0)
 		{
-			initforks(philos);
 			routine(philos);
-			return ;
+			ft_exit(philos, 0) ;
 		}
 		philos = philos->next;
 		i++;
@@ -39,7 +42,11 @@ void	initphilos(t_philo *philos)
 	i = 0;
 	while (i < philos->gdata->np)
 	{
-		waitpid(philos->philo, NULL , 0);
+		waitpid(philos->philo, &status, 0);
+		if (WEXITSTATUS(status))
+		{
+			kill(philos->philo, SIGTERM);
+		}
 		philos = philos->next;
 		i++;
 	}
@@ -50,9 +57,6 @@ t_philo	*makephilos(t_args *data)
 	int				i;
 	t_philo			*philos;
 
-	sem_open("forks", O_CREAT, 0644, data->np);
-	sem_open("lm", O_CREAT, 0644, 1);
-	sem_open("dead", O_CREAT, 0644, 1);
 	philos = NULL;
 	i = 0;
 	while (i < data->np)
@@ -61,6 +65,7 @@ t_philo	*makephilos(t_args *data)
 		i++;
 	}
 	lastphilo(philos)->next = philos;
+	initforks(philos);
 	initphilos(philos);
 	return (philos);
 }

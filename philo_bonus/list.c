@@ -47,3 +47,25 @@ t_philo	*newphilo(t_args *gdata)
 	n->next = NULL;
 	return (n);
 }
+
+void	hb_clearphilo(t_philo **lst)
+{
+	t_philo	*n;
+	int	i;
+	int	np;
+
+	if (!lst)
+		return ;
+	np = (*lst)->gdata->np;
+	free((*lst)->gdata);
+	(*lst)->gdata = NULL;
+	i = 0;
+	while (i < np)
+	{
+		n = (*lst)->next;
+		free(*lst);
+		*lst = n;
+		i++;
+	}
+	lst = NULL;
+}

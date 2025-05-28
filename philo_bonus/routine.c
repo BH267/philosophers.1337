@@ -48,6 +48,9 @@ void	*routine(void *philos)
 
 	philo = (t_philo *)philos;
 	pthread_create(&th, NULL, monitor, philo);
+	philo->forks = sem_open("forks", O_CREAT);
+	philo->lm = sem_open("lm", O_CREAT);
+	philo->dead = sem_open("dead", O_CREAT);
 	while (readead(philo) == 0)
 	{
 		if (philo->nmeals == philo->gdata->nte)
