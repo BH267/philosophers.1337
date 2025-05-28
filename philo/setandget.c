@@ -16,26 +16,27 @@ int	readead(t_philo *philo)
 {
 	int	d;
 
+	d = 0;
 	pthread_mutex_lock(philo->isdead);
 	d = *(dead());
 	pthread_mutex_unlock(philo->isdead);
 	return (d);
 }
 
-int	setdead(t_philo *philo, int d)
+void	setdead(t_philo *philo, int d)
 {
 	pthread_mutex_lock(philo->isdead);
 	*(dead()) = d;
 	if (d == 1)
-		print(DEAD, philo);
+		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
 	pthread_mutex_unlock(philo->isdead);
-	return (d);
 }
 
 size_t	readlm(t_philo *philo)
 {
 	size_t	d;
 
+	d = 0;
 	pthread_mutex_lock(&(philo->lm));
 	d = philo->lastmeal;
 	pthread_mutex_unlock(&(philo->lm));
@@ -46,6 +47,7 @@ ssize_t	readnm(t_philo *philo)
 {
 	ssize_t	d;
 
+	d = 0;
 	pthread_mutex_lock(&(philo->lm));
 	d = philo->nmeals;
 	pthread_mutex_unlock(&(philo->lm));

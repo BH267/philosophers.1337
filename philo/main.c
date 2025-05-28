@@ -33,7 +33,9 @@ t_args	*setargs(char **av)
 int	main(int ac, char **av)
 {
 	t_args	*args;
+	t_philo	*philo;
 
+	philo = NULL;
 	if (ac < 5 || 6 < ac)
 		return (printf("   usage : <./philo np ttd tte tts nte(op)>\n"), 1);
 	args = setargs(av);
@@ -42,5 +44,6 @@ int	main(int ac, char **av)
 	if (args->np == 1)
 		singlephilo();
 	else
-		makephilos(args);
+		philo = makephilos(args);
+	free(args);
 }

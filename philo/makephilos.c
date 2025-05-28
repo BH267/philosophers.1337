@@ -70,5 +70,6 @@ t_philo	*makephilos(t_args *data)
 	lastphilo(philos)->next = philos;
 	initforks(philos);
 	initphilos(philos);
+	hb_clearphilo(&philos);
 	return (philos);
 }

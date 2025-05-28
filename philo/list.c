@@ -49,3 +49,25 @@ t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 	n->next = NULL;
 	return (n);
 }
+
+
+void	hb_clearphilo(t_philo **lst)
+{
+	t_philo	*n;
+	int	i;
+	int	np;
+
+	if (!lst)
+		return ;
+	np = (*lst)->gdata->np;
+	i = 0;
+	while (i < np)
+	{
+		n = (*lst)->next;
+		pthread_mutex_destroy(&((*lst)->rfork));
+		free(*lst);
+		*lst = n;
+		i++;
+	}
+	lst = NULL;
+}
