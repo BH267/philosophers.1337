@@ -32,14 +32,14 @@ void	hb_usleep(size_t sleep, t_philo *philo)
 	{
 		if (readead(philo))
 			return ;
-		usleep(100);
+		usleep(1000);
 	}
 }
 
-void	print(int state, t_philo *philo)
+int	print(int state, t_philo *philo)
 {
 	if (readead(philo) && state != DEAD)
-		return ;
+		return (1);
 	pthread_mutex_lock(philo->print);
 	if (state == FORK)
 		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
@@ -52,4 +52,5 @@ void	print(int state, t_philo *philo)
 	else if (state == DEAD)
 		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
 	pthread_mutex_unlock(philo->print);
+	return (0);
 }

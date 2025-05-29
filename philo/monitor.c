@@ -26,26 +26,23 @@ void	*monitor(void *philos)
 	int		lm;
 
 	philo = (t_philo *)philos;
-	while (philo->next)
+	while (1)
 	{
 		i = 0;
 		lm = 0;
-		while (i < philo->gdata->np && philo->gdata->nte != -2)
+		while (i++ < philo->gdata->np && philo->gdata->nte != -2)
 		{
 			if (readnm(philos) >= philo->gdata->nte)
 				lm++;
 			if (lm == philo->gdata->np)
 				setdead(philo, 2);
-			i++;
 		}
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 		{
 			setdead(philo, 1);
 			print(DEAD, philo);
-			printf(" lm: %lu  -- id: %d -- ct: %lu -- lfar9: %lu\n", readlm(philo), philo->id, getime() - philo->st, getime() - philo->st - readlm(philo));
-		}
-		if (readead(philo))
 			break ;
+		}
 		philo = philo->next;
 	}
 	return (NULL);

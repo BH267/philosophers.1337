@@ -18,24 +18,22 @@ int	takefork(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->lfork);
 		pthread_mutex_lock(&(philo->rfork));
-		if (readead(philo))
+		if (print(FORK, philo))
 		{
 			putfork(philo);
 			return (1);
 		}
-		print(FORK, philo);
 	}
 	else
 	{
-		usleep(500);
+		usleep(1000);
 		pthread_mutex_lock(&(philo->rfork));
 		pthread_mutex_lock(philo->lfork);
-		if (readead(philo))
+		if (print(FORK, philo))
 		{
 			putfork(philo);
 			return (1);
 		}
-		print(FORK, philo);
 	}
 	return (0);
 }
