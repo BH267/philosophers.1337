@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	takefork(t_philo *philo)
+int	takefork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -21,9 +21,9 @@ void	takefork(t_philo *philo)
 		if (readead(philo))
 		{
 			putfork(philo);
-			return ;
+			return (1);
 		}
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+		print(FORK, philo);
 	}
 	else
 	{
@@ -33,10 +33,11 @@ void	takefork(t_philo *philo)
 		if (readead(philo))
 		{
 			putfork(philo);
-			return ;
+			return (1);
 		}
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+		print(FORK, philo);
 	}
+	return (0);
 }
 
 void	putfork(t_philo *philo)

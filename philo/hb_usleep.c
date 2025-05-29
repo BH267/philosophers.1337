@@ -38,7 +38,11 @@ void	hb_usleep(size_t sleep, t_philo *philo)
 
 void	print(int state, t_philo *philo)
 {
+	if (readead(philo) && state != DEAD)
+		return ;
 	pthread_mutex_lock(philo->print);
+	if (state == FORK)
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	if (state == EAT)
 		printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	else if (state == SLEEP)

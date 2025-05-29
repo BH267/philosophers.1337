@@ -27,8 +27,6 @@ void	setdead(t_philo *philo, int d)
 {
 	pthread_mutex_lock(philo->isdead);
 	*(dead()) = d;
-	if (d == 1)
-		print(DEAD, philo);
 	pthread_mutex_unlock(philo->isdead);
 }
 

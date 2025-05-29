@@ -63,7 +63,6 @@ void	hb_clearphilo(t_philo **lst)
 	while (i < np)
 	{
 		n = (*lst)->next;
-		pthread_mutex_destroy(&((*lst)->rfork));
 		free(*lst);
 		*lst = n;
 		i++;

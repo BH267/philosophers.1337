@@ -14,10 +14,9 @@
 
 int	eating(t_philo *philo)
 {
-	takefork(philo);
-	setlm(philo);
-	if (readead(philo))
+	if (takefork(philo))
 		return (1);
+	setlm(philo);
 	print(EAT, philo);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);

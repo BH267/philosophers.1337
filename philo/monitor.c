@@ -41,7 +41,8 @@ void	*monitor(void *philos)
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 		{
 			setdead(philo, 1);
-			printf("awdi hak -> lm: %lu  -- id: %d -- ct: %lu\n", readlm(philo), philo->id, getime() - philo->st);
+			print(DEAD, philo);
+			printf(" lm: %lu  -- id: %d -- ct: %lu -- lfar9: %lu\n", readlm(philo), philo->id, getime() - philo->st, getime() - philo->st - readlm(philo));
 		}
 		if (readead(philo))
 			break ;
