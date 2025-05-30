@@ -31,14 +31,11 @@ void	initphilos(t_philo *philos)
 	int				i;
 	pthread_t		th;
 	pthread_mutex_t	isdead;
-	pthread_mutex_t	print;
 
 	pthread_mutex_init(&(isdead), NULL);
-	pthread_mutex_init(&print, NULL);
 	i = 0;
 	while (i < philos->gdata->np)
 	{
-		philos->print = &print;
 		pthread_mutex_init(&(philos->lm), NULL);
 		philos->isdead = &(isdead);
 		pthread_create(philos->philo, NULL, routine, philos);

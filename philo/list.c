@@ -50,6 +50,7 @@ t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 	return (n);
 }
 
+
 void	hb_clearphilo(t_philo **lst)
 {
 	t_philo	*n;

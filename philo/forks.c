@@ -12,30 +12,31 @@
 
 #include "philo.h"
 
-int	takefork(t_philo *philo)
+void	takefork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->lfork);
 		pthread_mutex_lock(&(philo->rfork));
-		if (print(FORK, philo))
+		if (readead(philo))
 		{
 			putfork(philo);
-			return (1);
+			return ;
 		}
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 	else
 	{
-		usleep(1000);
+		usleep(500);
 		pthread_mutex_lock(&(philo->rfork));
 		pthread_mutex_lock(philo->lfork);
-		if (print(FORK, philo))
+		if (readead(philo))
 		{
 			putfork(philo);
-			return (1);
+			return ;
 		}
+		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
-	return (0);
 }
 
 void	putfork(t_philo *philo)
