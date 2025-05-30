@@ -14,29 +14,25 @@
 
 void	takefork(t_philo *philo)
 {
+	if (readead(philo))
+		return ;
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->lfork);
 		pthread_mutex_lock(&(philo->rfork));
-		if (readead(philo))
-		{
-			putfork(philo);
-			return ;
-		}
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
 	else
 	{
-		usleep(500);
+		usleep(100);
 		pthread_mutex_lock(&(philo->rfork));
 		pthread_mutex_lock(philo->lfork);
-		if (readead(philo))
-		{
-			putfork(philo);
-			return ;
-		}
-		printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 	}
+	if (readead(philo))
+	{
+		putfork(philo);
+		return ;
+	}
+	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
 }
 
 void	putfork(t_philo *philo)

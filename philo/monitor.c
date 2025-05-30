@@ -39,8 +39,12 @@ void	*monitor(void *philos)
 			i++;
 		}
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
+		{
 			setdead(philo, 1);
+			break;
+		}
 		philo = philo->next;
+		usleep(500);
 	}
 	if (readead(philo) == 1)
 		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);

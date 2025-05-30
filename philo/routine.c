@@ -15,9 +15,9 @@
 int	eating(t_philo *philo)
 {
 	takefork(philo);
-	setlm(philo);
 	if (readead(philo))
 		return (1);
+	setlm(philo);
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tte, philo);
 	putfork(philo);
@@ -48,7 +48,7 @@ void	*routine(void *philos)
 	philo = (t_philo *)philos;
 	while (readead(philo) == 0)
 	{
-		if (philo->nmeals == philo->gdata->nte)
+		if (readnm(philo) == philo->gdata->nte)
 			break;
 		if (eating(philo))
 			break ;
