@@ -47,6 +47,9 @@ void	*monitor(void *philos)
 		usleep(500);
 	}
 	if (readead(philo) == 1)
+	{
+		usleep(1000);
 		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
+	}
 	return (NULL);
 }
