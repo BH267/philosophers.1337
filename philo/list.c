@@ -46,6 +46,7 @@ t_philo	*newphilo(pthread_t *phl, pthread_mutex_t fork, t_args *gdata)
 	n->id = id;
 	n->st = getime();
 	n->gdata = gdata;
+	n->lastmeal = 0;
 	n->next = NULL;
 	return (n);
 }
