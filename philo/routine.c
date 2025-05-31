@@ -37,6 +37,7 @@ int	thinking(t_philo *philo)
 	if (readead(philo))
 		return (1);
 	printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
+	usleep(1000);
 	return (0);
 }
 
