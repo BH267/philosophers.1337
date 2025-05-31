@@ -3,7 +3,7 @@ SRC = main.c hb_atou.c hb_isdigit.c makephilos.c list.c \
       setandget.c forks.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 OBJ = $(SRC:.c=.o)
 
 RM = rm -f
@@ -13,16 +13,16 @@ NAME = philo
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 %.o : %.c 
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	@$(RM) $(OBJ) 
+	$(RM) $(OBJ) 
 
 fclean : clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
 

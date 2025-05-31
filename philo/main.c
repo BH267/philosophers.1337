@@ -26,7 +26,10 @@ t_args	*setargs(char **av)
 		args->nte = hb_atou(av[5]);
 	if (args->np > 200 || args->np <= 0 || args->ttd < 60 || args->tte < 60
 		|| args->tts < 60 || args->nte < -2 || args->nte == -1)
+	{
+		free(args);
 		return (NULL);
+	}
 	return (args);
 }
 
