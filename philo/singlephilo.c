@@ -14,9 +14,9 @@
 
 void	*sroutine(void *dataa)
 {
-	size_t	start;
-	t_args	*data;
-	pthread_mutex_t		fork;
+	size_t			start;
+	t_args			*data;
+	pthread_mutex_t	fork;
 
 	data = (t_args *)dataa;
 	start = getime();

@@ -49,7 +49,7 @@ void	*routine(void *philos)
 	while (readead(philo) == 0)
 	{
 		if (readnm(philo) == philo->gdata->nte)
-			break;
+			break ;
 		if (eating(philo))
 			break ;
 		if (sleeping(philo))

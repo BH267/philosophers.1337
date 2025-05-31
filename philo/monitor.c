@@ -19,6 +19,15 @@ int	*dead(void)
 	return (&dead);
 }
 
+void	printdead(t_philo *philo)
+{
+	if (readead(philo) == 1)
+	{
+		usleep(1000);
+		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
+	}
+}
+
 void	*monitor(void *philos)
 {
 	t_philo	*philo;
@@ -39,13 +48,9 @@ void	*monitor(void *philos)
 		}
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo, 1);
+		printdead(philo);
 		philo = philo->next;
 		usleep(500);
-	}
-	if (readead(philo) == 1)
-	{
-		usleep(1000);
-		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
 	}
 	return (NULL);
 }
