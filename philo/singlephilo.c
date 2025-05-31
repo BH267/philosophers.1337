@@ -16,11 +16,15 @@ void	*sroutine(void *dataa)
 {
 	size_t	start;
 	t_args	*data;
+	pthread_mutex_t		fork;
 
 	data = (t_args *)dataa;
 	start = getime();
+	pthread_mutex_init(&fork, NULL);
+	pthread_mutex_lock(&fork);
 	printf("%lu %d take a fork\n", getime() - start, 1);
 	usleep(data->ttd * 1000);
+	pthread_mutex_unlock(&fork);
 	printf("%lu %d died\n", getime() - start, 1);
 	return (NULL);
 }

@@ -75,7 +75,7 @@ size_t	readlm(t_philo *philo);
 ssize_t	readnm(t_philo *philo);
 void	singlephilo(t_args *data);
 int		*dead(void);
-void	takefork(t_philo *philo);
+int	takefork(t_philo *philo);
 void	putfork(t_philo *philo);
 void	print(int state, t_philo *philo);
 char	*hb_itoa(size_t d);

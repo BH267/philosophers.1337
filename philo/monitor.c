@@ -30,19 +30,15 @@ void	*monitor(void *philos)
 	{
 		i = 0;
 		lm = 0;
-		while (i < philo->gdata->np && philo->gdata->nte != -2)
+		while (i++ < philo->gdata->np && philo->gdata->nte != -2)
 		{
 			if (readnm(philos) >= philo->gdata->nte)
 				lm++;
 			if (lm == philo->gdata->np)
 				setdead(philo, 2);
-			i++;
 		}
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
-		{
 			setdead(philo, 1);
-			break;
-		}
 		philo = philo->next;
 		usleep(500);
 	}

@@ -14,8 +14,7 @@
 
 int	eating(t_philo *philo)
 {
-	takefork(philo);
-	if (readead(philo))
+	if (takefork(philo))
 		return (1);
 	setlm(philo);
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
