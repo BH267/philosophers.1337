@@ -14,6 +14,10 @@
 
 int	eating(t_philo *philo)
 {
+	if (philo->gdata->np < 100)
+		usleep(200);
+	if (philo->id % 2 == 0)
+		usleep(500);
 	takefork(philo);
 	setlm(philo);
 	philo->nmeals += 1;
@@ -40,10 +44,10 @@ void	routine(t_philo *philo)
 {
 	pthread_t	th;
 
-	//philo->forks = sem_open("fork", O_CREAT);
-//	philo->lm = sem_open("lm", O_CREAT);
-	//philo->dead = sem_open("deadlock", O_CREAT);
-//	philo->mat = sem_open("dead", O_CREAT);
+	philo->forks = sem_open("fork", O_CREAT);
+	philo->lm = sem_open("lm", O_CREAT);
+	philo->dead = sem_open("deadlock", O_CREAT);
+	philo->mat = sem_open("dead", O_CREAT);
 	pthread_create(&th, NULL, monitor, philo);
 	while (1)
 	{
