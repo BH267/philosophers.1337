@@ -12,13 +12,6 @@
 
 #include "philo.h"
 
-int	*dead(void)
-{
-	static int	dead;
-
-	return (&dead);
-}
-
 void	*monitor(void *philos)
 {
 	t_philo	*philo;
@@ -26,12 +19,10 @@ void	*monitor(void *philos)
 	philo = (t_philo *)philos;
 	while (!readead(philo))
 	{
-		if (readnm(philos) >= philo->gdata->nte && philo->gdata->nte != -2)
-			setdead(philo, 2);
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
-			setdead(philo, 1);
-		if (readead(philo))
-			break ;
+			setdead(philo);
+		usleep(500);
 	}
+	ft_exit(philos, 0);
 	return (NULL);
 }

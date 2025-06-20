@@ -14,14 +14,6 @@
 
 void	ft_exit(t_philo *philo, int e)
 {
-	/*int	i;
-
-	i = 0;
-	while (i < philo->gdata->np)
-	{
-		kill(philo->philo, SIGINT);
-		i++;
-	}*/
-	hb_clearphilo(&(philo));
+	free(philo);
 	exit(e);
 }

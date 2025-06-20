@@ -36,6 +36,7 @@
 # define EAT 1
 # define SLEEP 2
 # define THINK 3
+# define FORK 4
 
 typedef struct s_argument
 {
@@ -56,6 +57,7 @@ typedef struct s_philo
 	ssize_t				nmeals;
 	size_t				st;
 	sem_t			*dead;
+	sem_t			*mat;
 	sem_t			*lm;
 	struct s_philo		*next;
 }	t_philo;
@@ -63,20 +65,20 @@ typedef struct s_philo
 int		hb_isdigit(int n);
 void	*monitor(void *philo);
 size_t	getime(void);
-void	*routine(void *philo);
-void	hb_usleep(size_t sleep, t_philo *philo);
+void	routine(t_philo *philo);
+void	hb_usleep(size_t sleep);
 t_philo	*makephilos(t_args *data);
 t_args	*setargs(char **av);
 ssize_t	hb_atou(const char *nbr);
 t_philo	*lastphilo(t_philo *lst);
 void	philoadd_back(t_philo **lst, t_philo *newph);
 t_philo	*newphilo(t_args *gdata);
-int		setdead(t_philo *philo, int d);
+int		setdead(t_philo *philo);
 int		readead(t_philo *philo);
 void	setlm(t_philo *philo);
 size_t	readlm(t_philo *philo);
 ssize_t	readnm(t_philo *philo);
-void	singlephilo(void);
+void	singlephilo(t_args *args);
 int		*dead(void);
 void	takefork(t_philo *philo);
 void	putfork(t_philo *philo);

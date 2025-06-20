@@ -21,7 +21,7 @@ size_t	getime(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	hb_usleep(size_t sleep, t_philo *philo)
+void	hb_usleep(size_t sleep)
 {
 	size_t	ctime;
 
@@ -29,21 +29,5 @@ void	hb_usleep(size_t sleep, t_philo *philo)
 	if (ctime == 1)
 		return ;
 	while ((getime() - ctime) < sleep)
-	{
-		if (readead(philo))
-			return ;
 		usleep(100);
-	}
-}
-
-void	print(int state, t_philo *philo)
-{
-	if (state == EAT)
-		printf("%lu %d is eating\n", getime() - philo->st, philo->id);
-	else if (state == SLEEP)
-		printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
-	else if (state == THINK)
-		printf("%lu %d is thinking\n", getime() - philo->st, philo->id);
-	else if (state == DEAD)
-		printf(RED "%lu %d is dead\n" DEFULT, getime() - philo->st, philo->id);
 }
