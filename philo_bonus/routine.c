@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 int	eating(t_philo *philo)
 {
@@ -18,7 +19,10 @@ int	eating(t_philo *philo)
 		usleep(200);
 	if (philo->id % 2 == 0)
 		usleep(500);
-	takefork(philo);
+	if (!readead(philo))
+		return (1);
+	if (takefork(philo))
+		return (1);
 	setlm(philo);
 	philo->nmeals += 1;
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
@@ -29,6 +33,8 @@ int	eating(t_philo *philo)
 
 int	sleeping(t_philo *philo)
 {
+	if (!readead(philo))
+		return (1);
 	printf("%lu %d is sleeping\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tts);
 	return (0);
@@ -44,18 +50,17 @@ void	routine(t_philo *philo)
 {
 	pthread_t	th;
 
-	philo->forks = sem_open("fork", O_CREAT);
-	philo->lm = sem_open("lm", O_CREAT);
-	philo->dead = sem_open("deadlock", O_CREAT);
-	philo->mat = sem_open("dead", O_CREAT);
 	pthread_create(&th, NULL, monitor, philo);
-	while (1)
+	while (readead(philo))
 	{
-		if (philo->nmeals <= philo->gdata->nte)
-			exit(2);
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
+		if (philo->nmeals >= philo->gdata->nte && philo->gdata->nte != -2)
+			ft_exit(philo, 2);
+		if (eating(philo))
+			break ;
+		if (sleeping(philo))
+			break ;
+		if (thinking(philo))
+			break ;
 	}
 	pthread_join(th, NULL);
 }

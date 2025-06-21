@@ -12,16 +12,32 @@
 
 #include "philo.h"
 
-void	initforks(long long np)
+void	initlocks(t_args **arg)
 {
 	sem_unlink("fork");
 	sem_unlink("lm");
 	sem_unlink("dead");
 	sem_unlink("deadlock");
-	sem_open("fork", O_CREAT, 0644, np);
-	sem_open("lm", O_CREAT, 0644, 1);
-	sem_open("dead", O_CREAT, 0644, 1);
-	sem_open("deadlock", O_CREAT, 0644, 1);
+	(*arg)->forks = sem_open("fork", O_CREAT, 0644, (*arg)->np);
+	(*arg)->lm = sem_open("lm", O_CREAT, 0644, 1);
+	(*arg)->mat = sem_open("dead", O_CREAT, 0644, 1);
+	(*arg)->dead = sem_open("deadlock", O_CREAT, 0644, 1);
+}
+
+void	destroylocks(t_philo *philo)
+{
+	if (philo->gdata->forks)
+		sem_close(philo->gdata->forks);
+	if (philo->gdata->dead)
+		sem_close(philo->gdata->dead);
+	if (philo->gdata->lm)
+		sem_close(philo->gdata->lm);
+	if (philo->gdata->mat)
+		sem_close(philo->gdata->mat);
+	sem_unlink("fork");
+	sem_unlink("lm");
+	sem_unlink("dead");
+	sem_unlink("deadlock");
 }
 
 void	philogo(t_philo *philo)
@@ -57,7 +73,8 @@ t_philo	*makephilos(t_args *args)
 	while (i++ < args->np)
 		philoadd_back(&philos, newphilo(args));
 	lastphilo(philos)->next = philos;
-	initforks(args->np);	
 	philogo(philos);
-	return (philos);
+	destroylocks(philos);
+	//hb_lstclear(&philos);
+	return (NULL);
 }

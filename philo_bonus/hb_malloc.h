@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habenydi <habenydi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybouanan <ybouanan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 15:09:06 by habenydi          #+#    #+#             */
-/*   Updated: 2025/05/28 15:10:24 by habenydi         ###   ########.fr       */
+/*   Created: 2025/03/03 17:13:51 by ybouanan          #+#    #+#             */
+/*   Updated: 2025/03/03 17:18:47 by ybouanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef HB_MALLOC_H
+# define HB_MALLOC_H
 
-void	ft_exit(t_philo *philo, int e)
+# include <stdlib.h>
+
+typedef struct s_hgc
 {
-	destroylocks(philo);
-	free(philo->gdata);
-	philo->gdata = NULL;
-	hb_free();
-	exit(e);
-}
+	void			*p;
+	struct s_hgc	*next;
+}				t_hgc;
+
+void			*hb_malloc(size_t bytes);
+void			hb_free(void);
+
+#endif

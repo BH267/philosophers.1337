@@ -26,6 +26,7 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include "hb_malloc.h"
 
 # define BLUE "\033[0;36m"
 # define RED "\033[0;31m"
@@ -45,25 +46,26 @@ typedef struct s_argument
 	long long	tte;
 	long long	tts;
 	long long	nte;
+	sem_t			*forks;
+	sem_t			*dead;
+	sem_t			*mat;
+	sem_t			*lm;
 }	t_args;
 
 typedef struct s_philo
 {
 	int					philo;
-	sem_t			*forks;
 	t_args				*gdata;
 	int					id;
 	size_t				lastmeal;
 	ssize_t				nmeals;
 	size_t				st;
-	sem_t			*dead;
-	sem_t			*mat;
-	sem_t			*lm;
 	struct s_philo		*next;
 }	t_philo;
 
 int		hb_isdigit(int n);
 void	*monitor(void *philo);
+void	hb_lstclear(t_philo **lst);
 size_t	getime(void);
 void	routine(t_philo *philo);
 void	hb_usleep(size_t sleep);
@@ -80,10 +82,12 @@ size_t	readlm(t_philo *philo);
 ssize_t	readnm(t_philo *philo);
 void	singlephilo(t_args *args);
 int		*dead(void);
-void	takefork(t_philo *philo);
+int		takefork(t_philo *philo);
 void	putfork(t_philo *philo);
 void	print(int state, t_philo *philo);
 void	hb_clearphilo(t_philo **lst);
 void	ft_exit(t_philo *philo, int e);
+void	destroylocks(t_philo *philo);
+void	initlocks(t_args **philo);
 
 #endif

@@ -37,39 +37,43 @@ t_philo	*newphilo(t_args *gdata)
 	static int	id;
 
 	id += 1;
-	n = (t_philo *)malloc(sizeof(t_philo));
+	n = (t_philo *)hb_malloc(sizeof(t_philo));
 	if (!n)
 		return (NULL);
 	n->nmeals = 0;
 	n->id = id;
 	n->st = getime();
 	n->gdata = gdata;
+	n->lastmeal = 0;
 	n->next = NULL;
 	return (n);
 }
 
 void	hb_clearphilo(t_philo **lst)
 {
+	if (!lst)
+		return ;
+	free((*lst)->gdata);
+	(*lst)->gdata = NULL;
+	free(*lst);
+	lst = NULL;
+}
+
+void	hb_lstclear(t_philo **lst)
+{
 	t_philo	*n;
 	int	i;
 	int	np;
-	int	pid;
 
 	if (!lst)
 		return ;
-	pid = 0;
 	np = (*lst)->gdata->np;
-	free((*lst)->gdata);
-	(*lst)->gdata = NULL;
 	i = 0;
-	while (i < np)
+	while (i++ < np)
 	{
 		n = (*lst)->next;
-		pid = (*lst)->philo;
 		free(*lst);
-		kill(pid, SIGINT);
 		*lst = n;
-		i++;
 	}
 	lst = NULL;
 }

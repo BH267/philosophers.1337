@@ -20,6 +20,8 @@ void	*sroutine(void *dataa)
 
 	data = (t_args *)dataa;
 	start = getime();
+	if (data->nte == 0)
+		return (NULL);
 	pthread_mutex_init(&fork, NULL);
 	pthread_mutex_lock(&fork);
 	printf("%lu %d take a fork\n", getime() - start, 1);

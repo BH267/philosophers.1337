@@ -12,17 +12,23 @@
 
 #include "philo.h"
 
-void	takefork(t_philo *philo)
+int	takefork(t_philo *philo)
 {
 	if (philo->id % 2 != 0)
 		usleep(500);
-	sem_wait(philo->forks);
-	sem_wait(philo->forks);
+	sem_wait(philo->gdata->forks);
+	sem_wait(philo->gdata->forks);
+	if (!readead(philo))
+	{
+		putfork(philo);
+		return (1);
+	}
 	printf("%lu %d has taken a fork\n", getime() - philo->st, philo->id);
+	return (0);
 }
 
 void	putfork(t_philo *philo)
 {
-	sem_post(philo->forks);
-	sem_post(philo->forks);
+	sem_post(philo->gdata->forks);
+	sem_post(philo->gdata->forks);
 }

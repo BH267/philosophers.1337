@@ -23,6 +23,5 @@ void	*monitor(void *philos)
 			setdead(philo);
 		usleep(500);
 	}
-	ft_exit(philos, 0);
 	return (NULL);
 }

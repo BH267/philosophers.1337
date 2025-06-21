@@ -1,6 +1,6 @@
 SRC = main.c hb_atou.c hb_isdigit.c  hb_usleep.c singlephilo.c \
       makephilos.c list.c routine.c monitor.c \
-      setandget.c forks.c ft_exit.c
+      setandget.c forks.c ft_exit.c hb_malloc.c
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g # -fsanitize=thread

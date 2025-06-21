@@ -30,6 +30,7 @@ t_args	*setargs(char **av)
 		free(args);
 		return (NULL);
 	}
+	initlocks(&args);
 	return (args);
 }
 
@@ -47,4 +48,6 @@ int	main(int ac, char **av)
 	else
 		makephilos(args);
 	free(args);
+	args = NULL;
+	hb_free();
 }
