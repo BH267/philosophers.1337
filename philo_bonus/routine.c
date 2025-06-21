@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 int	eating(t_philo *philo)
 {
@@ -24,7 +23,6 @@ int	eating(t_philo *philo)
 	if (takefork(philo))
 		return (1);
 	setlm(philo);
-	philo->nmeals += 1;
 	printf("%lu %d is eating\n", getime() - philo->st, philo->id);
 	hb_usleep(philo->gdata->tte);
 	putfork(philo);
@@ -53,8 +51,8 @@ void	routine(t_philo *philo)
 	pthread_create(&th, NULL, monitor, philo);
 	while (readead(philo))
 	{
-		if (philo->nmeals >= philo->gdata->nte && philo->gdata->nte != -2)
-			ft_exit(philo, 2);
+		if (readnm(philo) >= philo->gdata->nte && philo->gdata->nte != -2)
+			break ;
 		if (eating(philo))
 			break ;
 		if (sleeping(philo))

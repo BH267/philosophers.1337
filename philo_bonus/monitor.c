@@ -19,6 +19,8 @@ void	*monitor(void *philos)
 	philo = (t_philo *)philos;
 	while (readead(philo) != 0)
 	{
+		if (readnm(philo) >= philo->gdata->nte && philo->gdata->nte != -2)
+			break ;
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
 			setdead(philo);
 		usleep(500);

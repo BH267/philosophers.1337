@@ -43,9 +43,20 @@ size_t	readlm(t_philo *philo)
 	return (d);
 }
 
+ssize_t	readnm(t_philo *philo)
+{
+	size_t	d;
+
+	sem_wait(philo->gdata->lm);
+	d = philo->nmeals;
+	sem_post(philo->gdata->lm);
+	return (d);
+}
+
 void	setlm(t_philo *philo)
 {
 	sem_wait(philo->gdata->lm);
 	philo->lastmeal = getime() - philo->st;
+	philo->nmeals += 1;
 	sem_post(philo->gdata->lm);
 }
