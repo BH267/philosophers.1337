@@ -22,7 +22,10 @@ void	*monitor(void *philos)
 		if (readnm(philo) >= philo->gdata->nte && philo->gdata->nte != -2)
 			break ;
 		if (getime() - philo->st - readlm(philo) > (size_t)philo->gdata->ttd)
+		{
 			setdead(philo);
+			break ;
+		}
 		usleep(500);
 	}
 	return (NULL);

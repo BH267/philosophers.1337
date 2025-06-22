@@ -29,7 +29,6 @@ int	setdead(t_philo *philo)
 	usleep(1000);
 	printf(RED"%lu %d is dead\n"DEFULT, getime() - philo->st, philo->id);
 	sem_post(philo->gdata->dead);
-	ft_exit(philo, 1);
 	return (0);
 }
 
