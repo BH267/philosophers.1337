@@ -14,7 +14,7 @@
 
 void	ft_exit(t_philo *philo, int e)
 {
-	destroylocks(philo);
+	destroylocks(philo->gdata);
 	free(philo->gdata);
 	philo->gdata = NULL;
 	hb_free();

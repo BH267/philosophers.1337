@@ -46,10 +46,10 @@ typedef struct s_argument
 	long long	tte;
 	long long	tts;
 	long long	nte;
-	sem_t			*forks;
-	sem_t			*dead;
-	sem_t			*mat;
-	sem_t			*lm;
+	sem_t		*forks;
+	sem_t		*dead;
+	sem_t		*mat;
+	sem_t		*lm;
 }	t_args;
 
 typedef struct s_philo
@@ -87,7 +87,7 @@ void	putfork(t_philo *philo);
 void	print(int state, t_philo *philo);
 void	hb_clearphilo(t_philo **lst);
 void	ft_exit(t_philo *philo, int e);
-void	destroylocks(t_philo *philo);
+void	destroylocks(t_args *args);
 void	initlocks(t_args **philo);
 
 #endif

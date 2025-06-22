@@ -24,16 +24,16 @@ void	initlocks(t_args **arg)
 	(*arg)->dead = sem_open("deadlock", O_CREAT, 0644, 1);
 }
 
-void	destroylocks(t_philo *philo)
+void	destroylocks(t_args *args)
 {
-	if (philo->gdata->forks)
-		sem_close(philo->gdata->forks);
-	if (philo->gdata->dead)
-		sem_close(philo->gdata->dead);
-	if (philo->gdata->lm)
-		sem_close(philo->gdata->lm);
-	if (philo->gdata->mat)
-		sem_close(philo->gdata->mat);
+	if (args->forks)
+		sem_close(args->forks);
+	if (args->dead)
+		sem_close(args->dead);
+	if (args->lm)
+		sem_close(args->lm);
+	if (args->mat)
+		sem_close(args->mat);
 	sem_unlink("fork");
 	sem_unlink("lm");
 	sem_unlink("dead");
@@ -66,7 +66,7 @@ void	philogo(t_philo *philo)
 t_philo	*makephilos(t_args *args)
 {
 	t_philo	*philos;
-	int	i;
+	int		i;
 
 	i = 0;
 	philos = NULL;
@@ -74,7 +74,6 @@ t_philo	*makephilos(t_args *args)
 		philoadd_back(&philos, newphilo(args));
 	lastphilo(philos)->next = philos;
 	philogo(philos);
-	destroylocks(philos);
-	//hb_lstclear(&philos);
+	destroylocks(philos->gdata);
 	return (NULL);
 }

@@ -62,8 +62,8 @@ void	hb_clearphilo(t_philo **lst)
 void	hb_lstclear(t_philo **lst)
 {
 	t_philo	*n;
-	int	i;
-	int	np;
+	int		i;
+	int		np;
 
 	if (!lst)
 		return ;

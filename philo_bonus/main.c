@@ -39,7 +39,8 @@ int	main(int ac, char **av)
 	t_args	*args;
 
 	if (ac < 5 || 6 < ac)
-		return (write(2, "   usage : <./philo np ttd tte tts nte(op)>\n", 44), 1);
+		return (write(2, "   usage : <./philo np ttd tte tts nte(op)>\n", 44),
+			1);
 	args = setargs(av);
 	if (!args)
 		return (write(2, "invalid argument\n", 17), 1);

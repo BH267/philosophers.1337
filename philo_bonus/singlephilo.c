@@ -15,23 +15,18 @@
 void	sroutine(t_args *args)
 {
 	size_t	start;
-	sem_t	*forks;
 
 	if (args->nte == 0)
 		return ;
 	sem_unlink("fork");
-	forks = sem_open("fork", O_CREAT, 0644, 2);
 	start = getime();
-	sem_wait(forks);
+	sem_wait(args->forks);
 	printf("%lu %d take a fork\n", getime() - start, 1);
 	hb_usleep(args->ttd);
 	printf("%lu %d died\n", getime() - start, 1);
-	sem_post(forks);
-	sem_unlink("fork");
-	sem_close(forks);
+	sem_post(args->forks);
+	destroylocks(args);
 }
-
-
 
 void	singlephilo(t_args *args)
 {
@@ -52,4 +47,5 @@ void	singlephilo(t_args *args)
 		exit(1);
 	}
 	waitpid(pid, NULL, 0);
+	destroylocks(args);
 }
